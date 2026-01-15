@@ -12,27 +12,56 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <style>
-        /* 确保版权信息样式美观且不干扰交互 */
+        /* 核心修复：确保 Canvas 能够接收全局鼠标事件 */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2; /* 置于最底层 */
+            display: block;
+        }
+
+        /* 装饰层必须设置穿透，否则会像一堵墙挡住鼠标信号 */
+        .landscape, .filter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none; 
+        }
+
+        /* 内容容器设置为穿透，保证鼠标滑动时直接作用于底层的 Canvas */
+        .content {
+            position: relative;
+            z-index: 10;
+            pointer-events: none; 
+        }
+
+        /* 恢复具体的文字和按钮的点击功能 */
+        .title, .description, .navigation__item a {
+            pointer-events: auto; 
+        }
+
+        /* 版权信息：同样设置为穿透，不干扰鼠标特效 */
         .footer-copyright {
             position: fixed;
             bottom: 20px;
             width: 100%;
             text-align: center;
-            color: rgba(255, 255, 255, 0.5); /* 半透明白，适配星空背景 */
+            color: rgba(255, 255, 255, 0.4);
             font-size: 12px;
-            font-family: "Microsoft YaHei", sans-serif;
-            letter-spacing: 0.5px;
-            z-index: 9999; /* 确保在最上层 */
-            pointer-events: none; /* 穿透点击，不影响背景交互 */
+            font-family: Arial, sans-serif;
+            letter-spacing: 1px;
+            z-index: 5;
+            pointer-events: none;
+            user-select: none;
         }
 
-        /* 修复可能存在的层级冲突，确保文字内容可点击 */
-        .content {
-            position: relative;
-            z-index: 100;
-        }
-
-        /* 移动端简单适配 */
+        /* 响应式微调 */
         @media (max-width: 768px) {
             .footer-copyright {
                 font-size: 10px;
@@ -43,9 +72,12 @@
 </head>
 <body>
 
+    <canvas id="canvas"></canvas>
+    <div class="filter"></div>
+    <div class="landscape"></div>
+
     <div class="content">
         <div class="title">Hosanna!</div>
-
         <div class="description">盛年不重来，一日难再晨。及时当勉励，岁月不待人。</div>
 
         <nav class="cover-navigation cover-navigation--primary">
@@ -59,22 +91,26 @@
         </nav>
     </div>
 
-    <div class="landscape"></div>
-    <div class="filter"></div>
-    <canvas id="canvas"></canvas>
-
     <div class="footer-copyright">
         Copyright &copy; 2025 - <span id="year"></span> Hosanna. All Rights Reserved.
     </div>
 
     <script type="text/javascript" src="js/sky.js"></script>
     <script>
-        // 自动获取当前年份并填充
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // 自动年份逻辑
+        const yearSpan = document.getElementById('year');
+        if(yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        /* 小提示：如果特效仍不灵敏，请确保 sky.js 内部没有阻止事件冒泡。
+           该代码已通过 pointer-events 实现了“视觉在文字上，交互在背景上”的无缝效果。
+        */
     </script>
 
 </body>
 </html>
+
 
 
 
