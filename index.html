@@ -2,162 +2,63 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11">
-    <title>Hosanna Nav</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <title>Exodus link</title>
+    <meta name=keywords content="Exodus Link">
+    <meta name=description content="Exodus Link">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23D4AF37'>♰</text></svg>" type="image/svg+xml">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-        /* 1. 强制理顺层级：背景(-2) < 画布(-1) < 内容(10) */
-        
-        /* 这里的类名必须和你 style.css 里的背景类名一致 */
-        .landscape, .filter {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2 !important; /* 确保背景在最底层 */
-        }
-
-        #canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1 !important; /* 确保波纹在背景之上，内容之下 */
-            pointer-events: none;
-            background: transparent !important; /* 必须透明，否则会遮挡背景图 */
-        }
-
-        .content {
-            position: relative;
-            z-index: 10; /* 确保文字和按钮在最顶层，可正常点击 */
-        }
-
-        /* 2. 导航布局优化：每行 5 个，间距紧凑 */
-        .navigation {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0;
-            margin: 20px auto;
-            list-style: none;
-            max-width: 750px; /* 减小总宽度，按钮就会靠拢 */
-            width: 100%;
-        }
-
-        .navigation__item {
-            flex: 0 0 20%; 
-            box-sizing: border-box;
-            padding: 8px 0px; 
-            display: flex !important;
-            justify-content: center;
-            float: none !important;
-        }
-
-        .navigation__item a {
-            display: inline-block;
-            min-width: 110px;
-            max-width: 150px;
-            padding: 8px 12px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.4);
-            border-radius: 20px;
-            color: #fff;
-            text-decoration: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .my-copyright {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 12px;
-            z-index: 999;
-            pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            .navigation__item { flex: 0 0 33.33%; }
-        }
-    </style>
+    
+<style>
+    /* 修正導航欄為 Flex 佈局，每行 5 個 */
+    .navigation {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 850px; /* 控制這個數值可以調整按鈕之間的緊湊度 */
+        margin: 0 auto;
+    }
+    .navigation__item {
+        flex: 0 0 20%; /* 核心：強制佔比 20% 實現每行 5 個 */
+        padding: 10px 0 !important;
+        display: flex;
+        justify-content: center;
+    }
+    .navigation__item a {
+        min-width: 110px; /* 限制按鈕最小寬度，保證整齊 */
+        max-width: 150px; /* 限制按鈕最大寬度，解決“太長”問題 */
+        box-sizing: border-box;
+        text-align: center;
+    }
+    /* 確保背景和內容層級正確 */
+    .content { z-index: 9999; }
+    #canvas { z-index: 1; pointer-events: none; }
+    .filter, .landscape { z-index: -1; }
+</style>
+    
 </head>
 <body>
+    <div class="content">
+        <div class="title">Exodus Link</div>
+
+        <div class="discription">盛年不重来，一日难再晨。及时当勉励，岁月不待人。</div>
+
+<nav class="cover-navigation cover-navigation--primary">
+    <ul class="navigation">
+        <li class="navigation__item"><a href="https://hosanna.top/" target="_blank">賀撒納 博客</a></li>
+        <li class="navigation__item"><a href="https://nva.hosanna.top/" target="_blank">賀撒納 導航</a></li>
+        <li class="navigation__item"><a href="https://exod.us.kg/" target="_blank">每日聖言</a></li>
+        <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
+        <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
+        <li class="navigation__item"><a href="https://www.vaticannews.va/zh.html/" target="_blank">梵蒂岡新聞</a></li>
+        <li class="navigation__item"><a href="https://www.vaticannews.va/zh/prayers.html/" target="_blank">祈禱經文</a></li>
+        <li class="navigation__item"><a href="https://www.vaticannews.va/zh/podcast/daily-chinese-news.html/" target="_blank">每日播客</a></li>
+    </ul>
+</nav>
+    </div>
     <div class="landscape"></div>
     <div class="filter"></div>
-    
     <canvas id="canvas"></canvas>
-
-    <div class="content">
-        <div class="title">Hosanna Nav</div>
-        <div class="discription">盛年不重来，一日难再晨。及时当勉励，岁月不待人。</div>
-        <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-                <li class="navigation__item"><a href="https://hosanna.top/" target="_blank">贺撒纳 博客</a></li>
-                <li class="navigation__item"><a href="https://nva.hosanna.top/" target="_blank">贺撒纳 导航</a></li>
-                <li class="navigation__item"><a href="https://exod.us.kg/" target="_blank">每日圣言</a></li>
-                <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
-                <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh.html/" target="_blank">梵蒂冈新闻</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh/prayers.html/" target="_blank">祈祷经文</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh/podcast/daily-chinese-news.html/" target="_blank">每日播客</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="my-copyright">
-        Copyright &copy; 2025 - <span id="cur-year"></span> Hosanna. All Rights Reserved.
-    </div>
-
-    <script>
-        document.getElementById('cur-year').innerText = new Date().getFullYear();
-
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let ripples = [];
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        window.addEventListener('mousemove', (e) => {
-            ripples.push({
-                x: e.clientX,
-                y: e.clientY,
-                radius: 1,
-                opacity: 1
-            });
-        });
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < ripples.length; i++) {
-                let r = ripples[i];
-                r.radius += 1.8;   // 扩散速度
-                r.opacity -= 0.015; // 消失速度
-
-                if (r.opacity <= 0) {
-                    ripples.splice(i, 1);
-                    i--;
-                    continue;
-                }
-
-                ctx.beginPath();
-                ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${r.opacity})`;
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
+    <script type="text/javascript" src="js/sky.js"></script>
 </body>
 </html>
