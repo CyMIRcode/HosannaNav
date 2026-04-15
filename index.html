@@ -6,7 +6,7 @@
     <title>Hosanna Nav</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <style>
-        /* 1. 导航容器 */
+        /* 1. 导航布局 */
         .navigation {
             display: flex;
             flex-wrap: wrap;
@@ -14,7 +14,7 @@
             padding: 0;
             margin: 20px auto;
             list-style: none;
-            max-width: 800px; /* 调小此数值可让按钮更紧凑 */
+            max-width: 800px; 
             width: 100%;
         }
 
@@ -29,21 +29,37 @@
 
         .navigation__item a {
             display: inline-block;
-            min-width: 120px;
+            min-width: 110px;
             max-width: 160px;
-            width: auto;
             padding: 8px 15px;
             text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             border: 1px solid rgba(255,255,255,0.5);
             border-radius: 20px;
             color: #fff;
             text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* 2. 版权信息样式 */
+        /* 2. 画布设置：去掉 background，设为透明 */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* 提高一点层级，但要低于 content */
+            pointer-events: none;
+            background: transparent !important; 
+        }
+
+        /* 3. 确保内容在特效之上 */
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
         .my-copyright {
             position: fixed;
             bottom: 20px;
@@ -55,24 +71,17 @@
             pointer-events: none;
         }
 
-        /* 3. 画布样式：必须放在 style 标签内 */
-        #canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; 
-            pointer-events: none;
-            background: #1a1a2e; /* 建议给个背景深色，否则水波纹看不见 */
-        }
-
         @media (max-width: 768px) {
             .navigation__item { flex: 0 0 33.33%; }
         }
     </style>
 </head>
 <body>
+    <div class="landscape"></div>
+    <div class="filter"></div>
+    
+    <canvas id="canvas"></canvas>
+
     <div class="content">
         <div class="title">Hosanna Nav</div>
         <div class="discription">盛年不重来，一日难再晨。及时当勉励，岁月不待人。</div>
@@ -90,17 +99,13 @@
         </nav>
     </div>
 
-    <canvas id="canvas"></canvas>
-
     <div class="my-copyright">
         Copyright &copy; 2025 - <span id="cur-year"></span> Hosanna. All Rights Reserved.
     </div>
 
     <script>
-        // 设置年份
         document.getElementById('cur-year').innerText = new Date().getFullYear();
 
-        // 涟漪特效逻辑
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         let ripples = [];
@@ -116,7 +121,7 @@
             ripples.push({
                 x: e.clientX,
                 y: e.clientY,
-                radius: 0,
+                radius: 2,
                 opacity: 1
             });
         });
@@ -125,8 +130,8 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < ripples.length; i++) {
                 let r = ripples[i];
-                r.radius += 2.5;   // 扩散速度
-                r.opacity -= 0.015; // 消失速度
+                r.radius += 2;   
+                r.opacity -= 0.02; 
 
                 if (r.opacity <= 0) {
                     ripples.splice(i, 1);
