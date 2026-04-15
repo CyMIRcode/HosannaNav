@@ -2,158 +2,147 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11" id="mixia_vpid">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=11">
     <title>Hosanna Nav</title>
-    <meta name=keywords content="Hosanna link">
-    <meta name=description content="Hosanna link">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-<style>
-    /* 1. 保持容器布局 */
-    .navigation {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 0;
-        margin: 20px auto;
-        list-style: none;
-        max-width: 900px; /* 可以适当调大，给卡片留呼吸空间 */
-        width: 100%;
-    }
+    <style>
+        /* 1. 导航容器 */
+        .navigation {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0;
+            margin: 20px auto;
+            list-style: none;
+            max-width: 800px; /* 调小此数值可让按钮更紧凑 */
+            width: 100%;
+        }
 
-    /* 2. 每个格子占 20%，但我们要让内部内容居中 */
-    .navigation__item {
-        flex: 0 0 20%; 
-        box-sizing: border-box;
-        padding: 10px 5px; /* 增加上下间距，微调左右间距 */
-        display: flex !important;
-        justify-content: center; /* 关键：让内部的 a 标签在格子里水平居中 */
-        float: none !important;
-    }
-
-    /* 3. 限制按钮（a 标签）的显示效果 */
-    .navigation__item a {
-        display: inline-block; /* 恢复为行内块，不再强制撑满全宽 */
-        min-width: 120px;      /* 设置一个最小宽度，保证整齐 */
-        max-width: 160px;      /* 关键：设置最大宽度，防止按钮过长 */
-        width: auto;           /* 根据文字自适应，但不超过 max-width */
-        padding: 8px 15px;     /* 按钮内部的内边距 */
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        
-        /* 保持你原本的边框和圆角样式（如果 style.css 没写，这里可以补上） */
-        border: 1px solid rgba(255,255,255,0.5);
-        border-radius: 20px;
-        color: #fff;
-        text-decoration: none;
-    }
-
-    /* 移动端适配 */
-    @media (max-width: 768px) {
         .navigation__item {
-            flex: 0 0 33.33%; /* 手机端改为每行 3 个或 2 个 */
+            flex: 0 0 20%; 
+            box-sizing: border-box;
+            padding: 10px 0px; 
+            display: flex !important;
+            justify-content: center;
+            float: none !important;
         }
+
         .navigation__item a {
-            min-width: 80px;
-            font-size: 12px;
+            display: inline-block;
+            min-width: 120px;
+            max-width: 160px;
+            width: auto;
+            padding: 8px 15px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
         }
-    }
-</style>
+
+        /* 2. 版权信息样式 */
+        .my-copyright {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        /* 3. 画布样式：必须放在 style 标签内 */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            pointer-events: none;
+            background: #1a1a2e; /* 建议给个背景深色，否则水波纹看不见 */
+        }
+
+        @media (max-width: 768px) {
+            .navigation__item { flex: 0 0 33.33%; }
+        }
+    </style>
 </head>
 <body>
     <div class="content">
         <div class="title">Hosanna Nav</div>
-
         <div class="discription">盛年不重来，一日难再晨。及时当勉励，岁月不待人。</div>
-
         <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
-                <li class="navigation__item"><a href="https://hosanna.top/" target="_blank" title="Hosanna Blog">贺撒纳 博客</a></li>
-                <li class="navigation__item"><a href="https://nva.hosanna.top/" target="_blank" title="Hosanna Nav">贺撒纳 导航</a></li>
-                <li class="navigation__item"><a href="https://exod.us.kg/" target="_blank" title="每日圣言">每日圣言</a></li>
-                <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank" title="我信">我信</a></li>
-                <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank" title="我信">我信</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh.html/" target="_blank" title="vaticannews">梵蒂冈新闻网</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh/prayers.html/" target="_blank" title="梵蒂冈新闻网">祈祷经文</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh/podcast/daily-chinese-news.html/" target="_blank" title="梵蒂冈新闻网每日播客">每日播客</a></li>
-                                
-                </ul>
+                <li class="navigation__item"><a href="https://hosanna.top/" target="_blank">贺撒纳 博客</a></li>
+                <li class="navigation__item"><a href="https://nva.hosanna.top/" target="_blank">贺撒纳 导航</a></li>
+                <li class="navigation__item"><a href="https://exod.us.kg/" target="_blank">每日圣言</a></li>
+                <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
+                <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
+                <li class="navigation__item"><a href="https://www.vaticannews.va/zh.html/" target="_blank">梵蒂冈新闻网</a></li>
+                <li class="navigation__item"><a href="https://www.vaticannews.va/zh/prayers.html/" target="_blank">祈祷经文</a></li>
+                <li class="navigation__item"><a href="https://www.vaticannews.va/zh/podcast/daily-chinese-news.html/" target="_blank">每日播客</a></li>
+            </ul>
         </nav>
     </div>
-    <div class="landscape"></div>
-    <div class="filter"></div>
+
     <canvas id="canvas"></canvas>
-#canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;      /* 关键：确保它在所有按钮的下面 */
-    pointer-events: none; /* 关键：确保鼠标点击能穿过画布，点到按钮上 */
-}
+
     <div class="my-copyright">
         Copyright &copy; 2025 - <span id="cur-year"></span> Hosanna. All Rights Reserved.
     </div>
 
-    <script type="text/javascript" src="js/sky.js"></script>
+    <script>
+        // 设置年份
+        document.getElementById('cur-year').innerText = new Date().getFullYear();
 
-<script>
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-let ripples = [];
+        // 涟漪特效逻辑
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let ripples = [];
 
-// 自动调整画布大小
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-
-// 鼠标移动事件
-window.addEventListener('mousemove', (e) => {
-    ripples.push({
-        x: e.clientX,
-        y: e.clientY,
-        radius: 0,
-        opacity: 1
-    });
-});
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    for (let i = 0; i < ripples.length; i++) {
-        let r = ripples[i];
-        r.radius += 2;   // 扩散速度
-        r.opacity -= 0.02; // 消失速度
-
-        if (r.opacity <= 0) {
-            ripples.splice(i, 1);
-            i--;
-            continue;
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resize);
+        resize();
 
-        ctx.beginPath();
-        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${r.opacity})`; // 涟漪颜色（白色）
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        ctx.closePath();
-    }
-    requestAnimationFrame(animate);
-}
+        window.addEventListener('mousemove', (e) => {
+            ripples.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 0,
+                opacity: 1
+            });
+        });
 
-animate();
-</script>
-    
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < ripples.length; i++) {
+                let r = ripples[i];
+                r.radius += 2.5;   // 扩散速度
+                r.opacity -= 0.015; // 消失速度
+
+                if (r.opacity <= 0) {
+                    ripples.splice(i, 1);
+                    i--;
+                    continue;
+                }
+
+                ctx.beginPath();
+                ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${r.opacity})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
-
-
-
-
-
-
