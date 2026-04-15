@@ -7,33 +7,45 @@
     <meta name=keywords content="Hosanna link">
     <meta name=description content="Hosanna link">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-/* 导航容器设置为 Flex 布局 */
-.navigation {
-    display: flex;
-    flex-wrap: wrap;       /* 允许换行 */
-    justify-content: center; /* 居中对齐 */
-    padding: 0;
-    margin: 0 auto;
-    list-style: none;
-    max-width: 1000px;     /* 根据你的页面宽度调整 */
-}
-
-/* 每个导航项占 20% 的宽度，即每行 5 个 */
-.navigation__item {
-    flex: 0 0 20%;         /* 不伸缩，固定占 20% */
-    box-sizing: border-box;
-    padding: 10px;         /* 间距 */
-    text-align: center;
-}
-
-/* 移动端自适应：如果是手机屏幕，建议改为每行 2 个或 1 个 */
-@media (max-width: 768px) {
-    .navigation__item {
-        flex: 0 0 50%;     /* 手机端每行 2 个 */
+<style>
+    /* 1. 确保导航容器居中且宽度足够 */
+    .navigation {
+        display: flex;
+        flex-wrap: wrap;        /* 允许换行 */
+        justify-content: center; /* 水平居中 */
+        align-items: flex-start; /* 顶部对齐 */
+        padding: 0;
+        margin: 20px auto;      /* 上下留白，左右居中 */
+        list-style: none;
+        max-width: 1000px;      /* 限制最大宽度，防止卡片太稀疏 */
+        width: 90%;
     }
-}
-    </style>
+
+    /* 2. 每个卡片占据 20% 宽度，并重置可能存在的浮动 */
+    .navigation__item {
+        flex: 0 0 20%;          /* 严格占据五分之一宽度 */
+        box-sizing: border-box;
+        padding: 10px;          /* 卡片之间的间距 */
+        display: block !important; /* 强制覆盖原本可能的 inline 样式 */
+        float: none !important;    /* 清除可能存在的浮动干扰 */
+    }
+
+    /* 3. 优化卡片内的链接样式 */
+    .navigation__item a {
+        display: block;         /* 让链接变成块级，占满 20% 的宽度 */
+        width: 100%;
+        white-space: nowrap;    /* 防止文字换行 */
+        overflow: hidden;
+        text-overflow: ellipsis; /* 文字过长显示省略号 */
+    }
+
+    /* 4. 移动端适配：屏幕太小时，每行显示 2 个 */
+    @media (max-width: 768px) {
+        .navigation__item {
+            flex: 0 0 50%;
+        }
+    }
+</style>
 </head>
 <body>
     <div class="content">
