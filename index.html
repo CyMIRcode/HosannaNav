@@ -8,16 +8,31 @@
     <meta name=description content="Hosanna link">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <style>
-        .my-copyright {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 12px;
-            z-index: 999;
-            pointer-events: none; /* 确保鼠标特效穿透，不影响轨迹 */
-        }
+/* 导航容器设置为 Flex 布局 */
+.navigation {
+    display: flex;
+    flex-wrap: wrap;       /* 允许换行 */
+    justify-content: center; /* 居中对齐 */
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    max-width: 1000px;     /* 根据你的页面宽度调整 */
+}
+
+/* 每个导航项占 20% 的宽度，即每行 5 个 */
+.navigation__item {
+    flex: 0 0 20%;         /* 不伸缩，固定占 20% */
+    box-sizing: border-box;
+    padding: 10px;         /* 间距 */
+    text-align: center;
+}
+
+/* 移动端自适应：如果是手机屏幕，建议改为每行 2 个或 1 个 */
+@media (max-width: 768px) {
+    .navigation__item {
+        flex: 0 0 50%;     /* 手机端每行 2 个 */
+    }
+}
     </style>
 </head>
 <body>
