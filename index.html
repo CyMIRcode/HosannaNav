@@ -8,41 +8,55 @@
     <meta name=description content="Hosanna link">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 <style>
-    /* 1. 确保导航容器居中且宽度足够 */
+    /* 1. 保持容器布局 */
     .navigation {
         display: flex;
-        flex-wrap: wrap;        /* 允许换行 */
-        justify-content: center; /* 水平居中 */
-        align-items: flex-start; /* 顶部对齐 */
+        flex-wrap: wrap;
+        justify-content: center;
         padding: 0;
-        margin: 20px auto;      /* 上下留白，左右居中 */
+        margin: 20px auto;
         list-style: none;
-        max-width: 1000px;      /* 限制最大宽度，防止卡片太稀疏 */
-        width: 90%;
-    }
-
-    /* 2. 每个卡片占据 20% 宽度，并重置可能存在的浮动 */
-    .navigation__item {
-        flex: 0 0 20%;          /* 严格占据五分之一宽度 */
-        box-sizing: border-box;
-        padding: 10px;          /* 卡片之间的间距 */
-        display: block !important; /* 强制覆盖原本可能的 inline 样式 */
-        float: none !important;    /* 清除可能存在的浮动干扰 */
-    }
-
-    /* 3. 优化卡片内的链接样式 */
-    .navigation__item a {
-        display: block;         /* 让链接变成块级，占满 20% 的宽度 */
+        max-width: 1200px; /* 可以适当调大，给卡片留呼吸空间 */
         width: 100%;
-        white-space: nowrap;    /* 防止文字换行 */
-        overflow: hidden;
-        text-overflow: ellipsis; /* 文字过长显示省略号 */
     }
 
-    /* 4. 移动端适配：屏幕太小时，每行显示 2 个 */
+    /* 2. 每个格子占 20%，但我们要让内部内容居中 */
+    .navigation__item {
+        flex: 0 0 20%; 
+        box-sizing: border-box;
+        padding: 10px 5px; /* 增加上下间距，微调左右间距 */
+        display: flex !important;
+        justify-content: center; /* 关键：让内部的 a 标签在格子里水平居中 */
+        float: none !important;
+    }
+
+    /* 3. 限制按钮（a 标签）的显示效果 */
+    .navigation__item a {
+        display: inline-block; /* 恢复为行内块，不再强制撑满全宽 */
+        min-width: 120px;      /* 设置一个最小宽度，保证整齐 */
+        max-width: 160px;      /* 关键：设置最大宽度，防止按钮过长 */
+        width: auto;           /* 根据文字自适应，但不超过 max-width */
+        padding: 8px 15px;     /* 按钮内部的内边距 */
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
+        /* 保持你原本的边框和圆角样式（如果 style.css 没写，这里可以补上） */
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 20px;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* 移动端适配 */
     @media (max-width: 768px) {
         .navigation__item {
-            flex: 0 0 50%;
+            flex: 0 0 33.33%; /* 手机端改为每行 3 个或 2 个 */
+        }
+        .navigation__item a {
+            min-width: 80px;
+            font-size: 12px;
         }
     }
 </style>
