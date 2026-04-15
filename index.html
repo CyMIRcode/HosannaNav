@@ -18,19 +18,19 @@
             z-index: 999;
             pointer-events: none;
         }
-        /* 👇 只加了这段，其余原始代码零修改 */
+        /* 👇 只加这段 */
         .navigation {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 10px;
-            max-width: 340px;
+            max-width: 260px;
             margin: 0 auto;
             list-style: none;
             padding: 0;
         }
         .navigation__item {
-            width: calc(50% - 5px);
+            width: 100%;
             box-sizing: border-box;
         }
         .navigation__item a {
