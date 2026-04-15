@@ -6,7 +6,35 @@
     <title>Hosanna Nav</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <style>
-        /* 1. 导航布局 */
+        /* 1. 强制理顺层级：背景(-2) < 画布(-1) < 内容(10) */
+        
+        /* 这里的类名必须和你 style.css 里的背景类名一致 */
+        .landscape, .filter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2 !important; /* 确保背景在最底层 */
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1 !important; /* 确保波纹在背景之上，内容之下 */
+            pointer-events: none;
+            background: transparent !important; /* 必须透明，否则会遮挡背景图 */
+        }
+
+        .content {
+            position: relative;
+            z-index: 10; /* 确保文字和按钮在最顶层，可正常点击 */
+        }
+
+        /* 2. 导航布局优化：每行 5 个，间距紧凑 */
         .navigation {
             display: flex;
             flex-wrap: wrap;
@@ -14,14 +42,14 @@
             padding: 0;
             margin: 20px auto;
             list-style: none;
-            max-width: 800px; 
+            max-width: 750px; /* 减小总宽度，按钮就会靠拢 */
             width: 100%;
         }
 
         .navigation__item {
             flex: 0 0 20%; 
             box-sizing: border-box;
-            padding: 10px 0px; 
+            padding: 8px 0px; 
             display: flex !important;
             justify-content: center;
             float: none !important;
@@ -30,34 +58,16 @@
         .navigation__item a {
             display: inline-block;
             min-width: 110px;
-            max-width: 160px;
-            padding: 8px 15px;
+            max-width: 150px;
+            padding: 8px 12px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.4);
             border-radius: 20px;
             color: #fff;
             text-decoration: none;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        /* 2. 画布设置：去掉 background，设为透明 */
-        #canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; /* 提高一点层级，但要低于 content */
-            pointer-events: none;
-            background: transparent !important; 
-        }
-
-        /* 3. 确保内容在特效之上 */
-        .content {
-            position: relative;
-            z-index: 10;
         }
 
         .my-copyright {
@@ -92,7 +102,7 @@
                 <li class="navigation__item"><a href="https://exod.us.kg/" target="_blank">每日圣言</a></li>
                 <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
                 <li class="navigation__item"><a href="https://holy.exod.us.kg/" target="_blank">我信</a></li>
-                <li class="navigation__item"><a href="https://www.vaticannews.va/zh.html/" target="_blank">梵蒂冈新闻网</a></li>
+                <li class="navigation__item"><a href="https://www.vaticannews.va/zh.html/" target="_blank">梵蒂冈新闻</a></li>
                 <li class="navigation__item"><a href="https://www.vaticannews.va/zh/prayers.html/" target="_blank">祈祷经文</a></li>
                 <li class="navigation__item"><a href="https://www.vaticannews.va/zh/podcast/daily-chinese-news.html/" target="_blank">每日播客</a></li>
             </ul>
@@ -121,7 +131,7 @@
             ripples.push({
                 x: e.clientX,
                 y: e.clientY,
-                radius: 2,
+                radius: 1,
                 opacity: 1
             });
         });
@@ -130,8 +140,8 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < ripples.length; i++) {
                 let r = ripples[i];
-                r.radius += 2;   
-                r.opacity -= 0.02; 
+                r.radius += 1.8;   // 扩散速度
+                r.opacity -= 0.015; // 消失速度
 
                 if (r.opacity <= 0) {
                     ripples.splice(i, 1);
@@ -142,7 +152,7 @@
                 ctx.beginPath();
                 ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
                 ctx.strokeStyle = `rgba(255, 255, 255, ${r.opacity})`;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1;
                 ctx.stroke();
             }
             requestAnimationFrame(animate);
